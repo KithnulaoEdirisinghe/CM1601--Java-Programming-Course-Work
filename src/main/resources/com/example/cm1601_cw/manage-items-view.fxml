@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TitledPane?>
+
+<Accordion xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="FX.ManageItemsController">
+    <panes>
+        <TitledPane text="Add item">
+            <content>
+                <fx:include fx:id="addItem" source="add-item-view.fxml"/>
+            </content>
+        </TitledPane>
+        <TitledPane text="Update item">
+            <content>
+                <fx:include fx:id="updateItem" source="update-item-view.fxml"/>
+            </content>
+        </TitledPane>
+        <TitledPane text="Delete item">
+            <content>
+                <fx:include fx:id="deleteItem" source="delete-item-view.fxml"/>
+            </content>
+        </TitledPane>
+    </panes>
+</Accordion>
