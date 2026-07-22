@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="FX.UpdateItemController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Item code:"/>
+        <TextField fx:id="findCodeField"/>
+        <Button text="Find" onAction="#handleFind"/>
+    </HBox>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Item name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="nameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Brand:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="brandField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Price:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="priceField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Quantity:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="quantityField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Category:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="categoryField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Purchase date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="datePicker" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Image filename:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="imageField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <Label fx:id="statusLabel" wrapText="true"/>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Button text="Save changes" onAction="#handleSave"/>
+    </HBox>
+</VBox>
