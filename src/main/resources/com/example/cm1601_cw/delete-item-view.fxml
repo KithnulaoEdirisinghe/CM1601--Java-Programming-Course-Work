@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="FX.DeleteItemController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Item code:"/>
+        <TextField fx:id="findCodeField"/>
+        <Button text="Find" onAction="#handleFind"/>
+    </HBox>
+
+    <Label fx:id="detailsLabel" wrapText="true"/>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Button fx:id="deleteButton" text="Delete item" disable="true" onAction="#handleDelete"/>
+    </HBox>
+
+    <Label fx:id="statusLabel" wrapText="true"/>
+</VBox>
