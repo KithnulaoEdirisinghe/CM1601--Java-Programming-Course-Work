@@ -10,6 +10,7 @@ public class InventoryItem {
     private String category;
     private String date;
     private String image;
+    private int lowStockThreshold;
 
     // Setter methods
     public void setItemCode(String itemCode) {
@@ -26,7 +27,7 @@ public class InventoryItem {
 
     public void setItemPrice(double price) {
         if (price < 0) {
-            System.out.println("Invalid price");
+            throw new IllegalArgumentException("Price cannot be negative");
         } else {
             this.price = price;
         }
@@ -34,10 +35,17 @@ public class InventoryItem {
 
     public void setItemQuantity(int quantity) {
         if (quantity < 0) {
-            System.out.println("Invalid quantity");
+            throw new IllegalArgumentException("Quantity cannot be negative");
         } else {
             this.quantity = quantity;
         }
+    }
+
+    public void setLowStockThreshold(int lowStockThreshold) {
+        if (lowStockThreshold < 0) {
+            throw new IllegalArgumentException("Low Stock Threshold cannot be negative");
+        }
+        this.lowStockThreshold = lowStockThreshold;
     }
 
     public void setItemCategory(String category) {
@@ -83,6 +91,10 @@ public class InventoryItem {
 
     public String getItemImage() {
         return image;
+    }
+
+    public int getLowStockThreshold() {
+        return lowStockThreshold;
     }
 
     // Display method

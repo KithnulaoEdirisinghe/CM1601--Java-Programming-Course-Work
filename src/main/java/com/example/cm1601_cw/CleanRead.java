@@ -41,6 +41,7 @@ public class CleanRead {
                 item.setItemCategory(line.get(5));
                 item.setItemDate(line.get(6));
                 item.setItemImage(line.get(7));
+                item.setLowStockThreshold(Integer.parseInt(line.get(8)));
 
                 inventory.add(item);
             }
