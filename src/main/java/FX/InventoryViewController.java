@@ -1,6 +1,8 @@
 package FX;
 
 import com.example.cm1601_cw.InventoryItem;
+import com.example.cm1601_cw.InventorySorter;
+import com.example.cm1601_cw.LowStockMonitor;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,9 +23,11 @@ public class InventoryViewController {
     @FXML private TableColumn<InventoryItem, String> itemCategory;
     @FXML private TableColumn<InventoryItem, String> itemDate;
     @FXML private TableColumn<InventoryItem, String> itemImage;
+    @FXML private TableColumn<InventoryItem, Integer> itemLowStockThreshold;
 
     @FXML private Label totalCountLabel;
     @FXML private Label totalValueLabel;
+    @FXML private Label lowStockLabel;
 
     private List<InventoryItem> inventory;
 
@@ -37,6 +41,7 @@ public class InventoryViewController {
         itemCategory.setCellValueFactory(new PropertyValueFactory<>("itemCategory"));
         itemDate.setCellValueFactory(new PropertyValueFactory<>("itemDate"));
         itemImage.setCellValueFactory(new PropertyValueFactory<>("itemImage"));
+        itemLowStockThreshold.setCellValueFactory(new PropertyValueFactory<>("lowStockThreshold"));
     }
 
     public void setInventory(List<InventoryItem> inventory) {
@@ -50,9 +55,18 @@ public class InventoryViewController {
     }
 
     private void refreshTable() {
-        // TODO: swap for InventorySorter.byCategoryThenCode(inventory) once that class exists
-        List<InventoryItem> sorted = inventory;
 
+        List<InventoryItem> sorted = InventorySorter.sortInventory(inventory);
+        List<InventoryItem> lowStock = LowStockMonitor.findLowStockItems(inventory);
+
+        StringBuilder code = new StringBuilder();
+        for (int i=0; i<lowStock.size(); i++) {
+            code.append(lowStock.get(i).getItemCode());
+            if (i < lowStock.size() - 1) {
+                code.append(", ");
+            }
+        }
+        lowStockLabel.setText ("Low stock : " + code);
         inventoryTable.setItems(FXCollections.observableArrayList(sorted));
 
         int count = 0;
