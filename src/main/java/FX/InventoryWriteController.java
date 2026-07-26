@@ -20,7 +20,8 @@ public abstract class InventoryWriteController {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("inventory_cleaned.txt"))) {
 
             for (InventoryItem item : inventory) {
-                writer.write(item.getItemCode() + ", " + item.getItemName() + ", " + item.getItemBrand() + ", " + String.format("%.2f", item.getItemPrice()) + ", " + item.getItemQuantity() + ", " + item.getItemCategory() + ", " + item.getItemDate() + ", " + item.getItemImage());writer.newLine();
+                writer.write(item.getItemCode() + ", " + item.getItemName() + ", " + item.getItemBrand() + ", " + String.format("%.2f", item.getItemPrice()) + ", " + item.getItemQuantity() + ", " + item.getItemCategory() + ", " + item.getItemDate() + ", " + item.getItemImage() + ", " + item.getLowStockThreshold());
+                writer.newLine();
             }
             return true;
         }

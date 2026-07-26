@@ -24,6 +24,7 @@ public class UpdateItemController extends InventoryWriteController {
     @FXML private DatePicker datePicker;
     @FXML private TextField imageField;
     @FXML private Label statusLabel;
+    @FXML private TextField thresholdField;
 
     private InventoryItem foundItem;
 
@@ -52,6 +53,7 @@ public class UpdateItemController extends InventoryWriteController {
         categoryField.setText(foundItem.getItemCategory());
         datePicker.setValue(LocalDate.parse(foundItem.getItemDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         imageField.setText(foundItem.getItemImage());
+        thresholdField.setText(String.valueOf(foundItem.getLowStockThreshold()));
 
         showStatus("Item found. Edit fields below and click Save.", false);
     }
@@ -121,6 +123,18 @@ public class UpdateItemController extends InventoryWriteController {
             return;
         }
 
+        int itemThreshold;
+        try {
+            itemThreshold = Integer.parseInt(thresholdField.getText().trim());
+        } catch (NumberFormatException e) {
+            showStatus("Invalid threshold. Please enter a whole number.", true);
+            return;
+        }
+        if (itemThreshold < 0) {
+            showStatus("Threshold cannot be negative.", true);
+            return;
+        }
+
         String itemCategory = categoryField.getText().trim();
         if (itemCategory.isEmpty()) {
             showStatus("Item category cannot be empty.", true);
@@ -157,6 +171,7 @@ public class UpdateItemController extends InventoryWriteController {
         foundItem.setItemCategory(itemCategory);
         foundItem.setItemDate(itemDate);
         foundItem.setItemImage(itemImage);
+        foundItem.setLowStockThreshold(itemThreshold);
 
         if (rewriteInventoryFile()) {
             showStatus("Item updated successfully.", false);
