@@ -19,6 +19,7 @@ public class AddItemController extends InventoryWriteController {
     @FXML private DatePicker datePicker;
     @FXML private TextField imageField;
     @FXML private Label errorLabel;
+    @FXML private TextField thresholdField;
 
     @FXML
     private void handleAddItem() {
@@ -97,6 +98,19 @@ public class AddItemController extends InventoryWriteController {
             return;
         }
 
+        int itemThreshold;
+
+        try {
+            itemThreshold = Integer.parseInt(thresholdField.getText().trim());
+        } catch (NumberFormatException e) {
+            showError("Invalid threshold. Please enter a whole number.");
+            return;
+        }
+        if (itemThreshold < 0) {
+            showError("Threshold cannot be negative.");
+            return;
+        }
+
         String itemCategory = categoryField.getText().trim();
         if (itemCategory.isEmpty()) {
             showError("Item category cannot be empty.");
@@ -136,6 +150,7 @@ public class AddItemController extends InventoryWriteController {
         newItem.setItemCategory(itemCategory);
         newItem.setItemDate(itemDate);
         newItem.setItemImage(itemImage);
+        newItem.setLowStockThreshold(itemThreshold);
 
         inventory.add(newItem);
 
@@ -155,6 +170,7 @@ public class AddItemController extends InventoryWriteController {
         categoryField.clear();
         datePicker.setValue(null);
         imageField.clear();
+        thresholdField.clear();
     }
 
     private void showError(String message) {
