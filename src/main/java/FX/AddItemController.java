@@ -1,12 +1,20 @@
 package FX;
 
+import com.example.cm1601_cw.AuditLogger;
 import com.example.cm1601_cw.InventoryItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
 
 public class AddItemController extends InventoryWriteController {
 
@@ -159,6 +167,8 @@ public class AddItemController extends InventoryWriteController {
             return;
         }
 
+        AuditLogger.log("ADD", itemCode, itemQuantity);
+
         errorLabel.setStyle("-fx-text-fill: green;");
         errorLabel.setText("Item added successfully.");
 
@@ -176,6 +186,32 @@ public class AddItemController extends InventoryWriteController {
     private void showError(String message) {
         errorLabel.setStyle("-fx-text-fill: red;");
         errorLabel.setText(message);
+    }
+
+    @FXML
+    private void handleChooseImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose an item image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images File", "*.jpg", "*.png", "*.jpeg"));
+
+        File selectedFile = fileChooser.showOpenDialog(imageField.getScene().getWindow());
+
+        if (selectedFile != null) {
+            try {
+                File imagesFolder = new File("images");
+                if (!imagesFolder.exists()) {
+                    imagesFolder.mkdir();
+                }
+
+                File destination = new File(imagesFolder, selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                imageField.setText (selectedFile.getName());
+            }
+            catch (IOException e) {
+                showError("Failed to copy image file.");
+            }
+        }
     }
 
     @Override

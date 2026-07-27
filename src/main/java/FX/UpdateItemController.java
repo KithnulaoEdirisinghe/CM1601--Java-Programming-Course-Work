@@ -1,17 +1,18 @@
 package FX;
 
+import com.example.cm1601_cw.AuditLogger;
 import com.example.cm1601_cw.InventoryItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class UpdateItemController extends InventoryWriteController {
 
@@ -174,6 +175,7 @@ public class UpdateItemController extends InventoryWriteController {
         foundItem.setLowStockThreshold(itemThreshold);
 
         if (rewriteInventoryFile()) {
+            AuditLogger.log("UPDATE", foundItem.getItemCode(),itemQuantity);
             showStatus("Item updated successfully.", false);
         }
 
@@ -192,6 +194,33 @@ public class UpdateItemController extends InventoryWriteController {
     private void showStatus(String message, boolean isError) {
         statusLabel.setStyle(isError ? "-fx-text-fill: red;" : "-fx-text-fill: green;");
         statusLabel.setText(message);
+    }
+
+    @FXML
+    private void handleChooseImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Item Image");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(imageField.getScene().getWindow());
+
+        if (selectedFile != null) {
+            try {
+                File imagesFolder = new File("images");
+                if (!imagesFolder.exists()) {
+                    imagesFolder.mkdir();
+                }
+
+                File destination = new File(imagesFolder, selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                imageField.setText(selectedFile.getName());
+            } catch (IOException e) {
+                showStatus("Failed to copy image file.", true);
+            }
+        }
     }
 
     @Override
