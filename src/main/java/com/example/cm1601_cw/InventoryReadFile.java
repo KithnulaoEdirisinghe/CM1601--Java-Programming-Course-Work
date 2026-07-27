@@ -20,15 +20,6 @@ public class InventoryReadFile {
 
     private static final DateTimeFormatter DoneDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static String normalizeDate(String rawDate) {
-        try {
-            LocalDate date = LocalDate.parse(rawDate.trim(), DoneDate);
-            return date.format(DoneDate);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
-    }
-
     public InventoryReadFile(){
 
         String path = "inventory_legacy.txt";
@@ -110,7 +101,6 @@ public class InventoryReadFile {
                         finalItems.set(6, Date.format(DoneDate));
                         break;
                         } catch(DateTimeParseException e){
-                            //not this format
                         }
                     }
 

@@ -29,6 +29,7 @@ public class MainApplication extends Application {
 
         MainController controller = fxmlLoader.getController();
         controller.setInventory(cleanreader.getInventory());
+        controller.setDealers(cleanreader.getDealer());
 
         stage.setTitle("Malabe Tuk-Tuk & Three-Wheeler Spares Depot");
         stage.setScene(scene);

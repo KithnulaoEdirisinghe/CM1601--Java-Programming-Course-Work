@@ -1,15 +1,11 @@
 package FX;
 
+import com.example.cm1601_cw.AuditLogger;
 import com.example.cm1601_cw.InventoryItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 
 public class DeleteItemController extends InventoryWriteController {
 
@@ -53,6 +49,7 @@ public class DeleteItemController extends InventoryWriteController {
 
         inventory.remove(foundItem);
         if (rewriteInventoryFile()) {
+            AuditLogger.log("DELETE", foundItem.getItemCode(), foundItem.getItemQuantity());
             showStatus("Item deleted successfully.", false);
         }
         

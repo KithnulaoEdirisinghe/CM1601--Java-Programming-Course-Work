@@ -6,13 +6,13 @@ import java.util.*;
 public class CleanRead {
 
     private List<InventoryItem> inventory = new ArrayList<>();
-    private List<List<String>> dealer = new ArrayList<>();
+    private List<Dealer> dealer = new ArrayList<>();
 
     public List<InventoryItem> getInventory() {
         return inventory;
     }
 
-    public List<List<String>> getDealer() {
+    public List<Dealer> getDealer() {
         return dealer;
     }
 
@@ -54,8 +54,12 @@ public class CleanRead {
                 for (int i = 0; i < fields.size(); i++) {
                     fields.set(i, fields.get(i).trim());
                 }
-                dealer.add(fields);
-
+                Dealer d = new Dealer();
+                d.setDealerCode(fields.get(0));
+                d.setDealerName(fields.get(1));
+                d.setDealerPhone(fields.get(2));
+                d.setDealerLocation(fields.get(3));
+                dealer.add(d);
             }
 
         }

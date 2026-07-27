@@ -12,7 +12,6 @@ public class InventoryItem {
     private String image;
     private int lowStockThreshold;
 
-    // Setter methods
     public void setItemCode(String itemCode) {
         this.itemCode = itemCode;
     }
@@ -60,7 +59,6 @@ public class InventoryItem {
         this.image = image;
     }
 
-    // Getter methods
     public String getItemCode() {
         return itemCode;
     }
@@ -95,17 +93,5 @@ public class InventoryItem {
 
     public int getLowStockThreshold() {
         return lowStockThreshold;
-    }
-
-    // Display method
-    public void displayInfo() {
-        System.out.println("Item Code: " + itemCode);
-        System.out.println("Item Name: " + name);
-        System.out.println("Item Brand: " + brand);
-        System.out.println("Item Price: " + price);
-        System.out.println("Item Quantity: " + quantity);
-        System.out.println("Item Category: " + category);
-        System.out.println("Item Date: " + date);
-        System.out.println("Item Image: " + image);
     }
 }
